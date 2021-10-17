@@ -14,6 +14,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('auth/register', 'ApiAuthController@register');
+
+Route::post('auth/login', 'ApiAuthController@login');
+
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::get('me', function (Request $request) {
+        return auth()->user();
+    });
+
+    Route::post('auth/logout', 'ApiAuthController@logout');
 });
+
+//Rotas para endereço
+Route::get('user/endereco/{id}', 'EnderecoController@index');
+Route::get('user/endereco/show/{id}', 'EnderecoController@show');
+Route::post('user/endereco', 'EnderecoController@store');
+Route::post('user/endereco/{id}', 'EnderecoController@update');
+Route::delete('user/endereco/{id}', 'EnderecoController@delete');
