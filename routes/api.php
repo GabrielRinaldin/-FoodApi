@@ -32,3 +32,9 @@ Route::get('user/endereco/show/{id}', 'EnderecoController@show');
 Route::post('user/endereco', 'EnderecoController@store');
 Route::post('user/endereco/{id}', 'EnderecoController@update');
 Route::delete('user/endereco/{id}', 'EnderecoController@delete');
+
+//Rotas para cadastrar doação
+Route::get('user/doacao/{id}', 'DoacaoController@index');
+Route::get('user/doacao/show/{id}', 'DoacaoController@show');
+Route::post('user/doacao', 'DoacaoController@store');
+Route::post('user/doacao/{id}', 'DoacaoController@update');

@@ -5,19 +5,25 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
+use App\Models\Endereco;
 
-class Endereco extends Model
+class Doacao extends Model
 {
     use HasFactory;
 
+    protected $table = 'doacoes';
+
+    protected $casts = [
+        'validade' => 'datetime',
+    ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function doacao()
+    public function endereco()
     {
-        return $this->hasMany(Doacao::class);
+        return $this->belongsTo(Endereco::class);
     }
 }

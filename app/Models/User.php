@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Endereco;
+use App\Models\Doacao;
 
 class User extends Authenticatable
 {
@@ -46,5 +47,10 @@ class User extends Authenticatable
     public function endereco()
     {
         return $this->hasMany(Endereco::class);
+    }
+
+    public function doacao()
+    {
+        return $this->hasMany(Doacao::class);
     }
 }
