@@ -68,26 +68,7 @@ class DoacaoController extends Controller
 
     public function show($id)
     {
-        // return Doacao::findOrFail($id)
-        //     ->join('users', 'user_id', '=', 'users.id')
-        //     ->join('enderecos', 'endereco_id', '=', 'enderecos.id')
-        //     ->select(
-        //         'doacoes.nome as doacao',
-        //         'doacoes.unidade_medida',
-        //         'doacoes.quantidade',
-        //         'doacoes.status',
-        //         'doacoes.validade',
-        //         'users.nome',
-        //         'users.email',
-        //         'users.celular',
-        //         'enderecos.estado',
-        //         'enderecos.cidade',
-        //         'enderecos.bairro',
-        //         'enderecos.logradouro',
-        //         'enderecos.numero',
-        //         'enderecos.complemento',
-        //     )
-        //     ->get();
+        
         return Doacao::findOrFail($id);
     }
 
@@ -114,7 +95,27 @@ class DoacaoController extends Controller
         }
     }
 
-    public function delete()
+    public function mostraTodasDoacoes()
     {
+         return Doacao::join('users', 'user_id', '=', 'users.id')
+             ->join('enderecos', 'endereco_id', '=', 'enderecos.id')
+             ->select(
+                 'doacoes.nome as doacao',
+                 'doacoes.unidade_medida',
+                 'doacoes.quantidade',
+                 'doacoes.status',
+                 'doacoes.validade',
+                 'users.nome',
+                 'users.email',
+                 'users.celular',
+                 'enderecos.estado',
+                 'enderecos.cidade',
+                 'enderecos.bairro',
+                 'enderecos.logradouro',
+                 'enderecos.numero',
+                 'enderecos.complemento',
+             )
+             ->where('status', 'disponivel')
+             ->get();
     }
 }
