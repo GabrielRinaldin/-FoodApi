@@ -52,8 +52,6 @@ class EnderecoController extends Controller
 
     public function update(Request $request, $id)
     {
-        Log::info($request);
-        Log::info($id);
         $endereco = Endereco::findOrFail($id);
         $endereco->estado = $request->estado;
         $endereco->cidade = $request->cidade;
