@@ -47,4 +47,12 @@ Route::post('user/doacoes-realizada/edit', 'DoacaoRealizadaController@edit');
 Route::get('user/doacoes-realizada/espera/', 'DoacaoRealizadaController@pegaDoadoesRealizadas');
 
 
+//Rotas para analise das doações realizada 
+Route::get('/doacoes-realizada/quilos', 'DoacaoRealizadaAnaliseController@pegaTodasDoacoesQuilos');
+Route::get('/doacoes-realizada/quilos/mes', 'DoacaoRealizadaAnaliseController@pegaDoacoesMesQuilos');
+Route::get('/doacoes-realizada/unidade' ,'DoacaoRealizadaAnaliseController@pegaTodasDoacoesUnidades');
+Route::get('/doacoes-realizada/unidade/mes', 'DoacaoRealizadaAnaliseController@pegaDoacoesMesUnidades');
+
+
+
 

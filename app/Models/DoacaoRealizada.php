@@ -9,6 +9,7 @@ class DoacaoRealizada extends Model
 {
     protected $casts = [
         'retirado' => 'boolean',
+        'created_at' => 'date'
     ];
     use HasFactory;
 }

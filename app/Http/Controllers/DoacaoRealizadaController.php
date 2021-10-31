@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\DoacaoRealizada;
 use App\Models\Doacao;
+use Illuminate\Support\Facades\Log;
 
 class DoacaoRealizadaController extends Controller
 {
@@ -24,6 +25,7 @@ class DoacaoRealizadaController extends Controller
 
     public function store(Request $request)
     {
+        Log::info($request->all());
         try {
             $checaDoacao = Doacao::where('id', $request->doacao_id)->first();
             if ($checaDoacao->quantidade < $request->quantidade) {
@@ -47,18 +49,21 @@ class DoacaoRealizadaController extends Controller
             $doacao_realizada->nome = $request->nome;
             $doacao_realizada->unidade_medida = $request->unidade_medida;
             $doacao_realizada->quantidade = $request->quantidade;
+            $doacao_realizada->retirado = false;
             $doacao_realizada->save();
 
             return response()->json([
                 'code' => 200,
                 'status' => 'Success',
-                'msg' => 'Doação Realizada'
+                'msg' => 'Você recebeu essa doação, obrigado por confirmar a retirada!'
             ]);
         } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            Log::error($e->getTraceAsString());
             return response()->json([
                 'code' => 500,
                 'status' => 'Error',
-                'msg' => 'Erro ao realizar Doação'
+                'msg' => 'Erro ao receber Doação'
             ]);
         }
     }

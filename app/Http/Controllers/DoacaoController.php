@@ -99,6 +99,7 @@ class DoacaoController extends Controller
         return Doacao::join('users', 'user_id', '=', 'users.id')
             ->join('enderecos', 'endereco_id', '=', 'enderecos.id')
             ->select(
+                'doacoes.id',
                 'doacoes.nome as doacao',
                 'doacoes.unidade_medida',
                 'doacoes.quantidade',
@@ -107,6 +108,7 @@ class DoacaoController extends Controller
                 'users.nome',
                 'users.email',
                 'users.celular',
+                'users.id as user_id',
                 'enderecos.estado',
                 'enderecos.cidade',
                 'enderecos.bairro',
