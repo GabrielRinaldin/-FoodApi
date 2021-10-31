@@ -8,9 +8,18 @@ use App\Models\Doacao;
 
 class DoacaoRealizadaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return DoacaoRealizada::all();
+        return DoacaoRealizada::where('doador_id', $request->id)
+            ->where('retirado', false)
+            ->join('users', 'user_id', '=', 'users.id')
+            ->select(
+                'users.nome as recebedor_nome',
+                'doacao_realizadas.nome',
+                'doacao_realizadas.quantidade',
+                'doacao_realizadas.unidade_medida',
+                'doacao_realizadas.id',
+            )->get();
     }
 
     public function store(Request $request)
@@ -28,7 +37,7 @@ class DoacaoRealizadaController extends Controller
             if ($checaDoacao->quantidade == 0) {
                 $checaDoacao->status = "retirado";
             }
-            
+
             $checaDoacao->save();
 
             $doacao_realizada = new DoacaoRealizada;
@@ -54,7 +63,48 @@ class DoacaoRealizadaController extends Controller
         }
     }
 
-    public function show()
+    public function edit(Request $request)
     {
+        try {
+        $doacao = DoacaoRealizada::findOrFail($request->id);
+        $doacao->retirado = $request->status;
+        $doacao->save();
+
+        return response()->json([
+            'code' => 200,
+            'status' => 'Success',
+            'msg' => 'Doação realizada!'
+        ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'code' => 500,
+                'status' => 'Error',
+                'msg' => 'Erro ao atualizar Doação'
+            ]);
+        }
+    }
+
+    public function pegaDoadoesRealizadas(Request $request)
+    {
+        try {
+            return DoacaoRealizada::where('doador_id', $request->id)
+                ->where('retirado', true)
+                ->join('users', 'user_id', '=', 'users.id')
+                ->select(
+                    'users.nome as recebedor_nome',
+                    'doacao_realizadas.nome',
+                    'doacao_realizadas.quantidade',
+                    'doacao_realizadas.unidade_medida',
+                    'doacao_realizadas.id',
+                )->get();
+        }
+        catch (\Exception $e) {
+            return response()->json([
+                'code' => 500,
+                'status' => 'Error',
+                'msg' => 'Erro ao deletar Doação'
+            ]);
+        }
     }
 }
