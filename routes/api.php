@@ -41,5 +41,10 @@ Route::post('user/doacao/{id}', 'DoacaoController@update');
 Route::get('doacao/', 'DoacaoController@mostraTodasDoacoes');
 
 //Rotas para doações realizada
-Route::get('doacoes-realizada/', 'DoacaoRealizadaController@index');
-Route::post('doacoes-realizada/', 'DoacaoRealizadaController@store');
+Route::get('user/doacoes-realizada/', 'DoacaoRealizadaController@index');
+Route::post('user/doacoes-realizada/', 'DoacaoRealizadaController@store');
+Route::post('user/doacoes-realizada/edit', 'DoacaoRealizadaController@edit');
+Route::get('user/doacoes-realizada/espera/', 'DoacaoRealizadaController@pegaDoadoesRealizadas');
+
+
+
