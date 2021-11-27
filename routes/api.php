@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+
+##  php artisan serve --host=192.168.1.4
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -48,10 +50,18 @@ Route::get('user/doacoes-realizada/espera/', 'DoacaoRealizadaController@pegaDoad
 
 
 //Rotas para analise das doações realizada 
-Route::get('/doacoes-realizada/quilos', 'DoacaoRealizadaAnaliseController@pegaTodasDoacoesQuilos');
+Route::get('/doacoes-realizada/quilos/todos', 'DoacaoRealizadaAnaliseController@pegaTodasDoacoesQuilos');
+Route::get('/doacoes-realizada/quilos/limit-5', 'DoacaoRealizadaAnaliseController@pegaDoacoesQuilosLimit5');
 Route::get('/doacoes-realizada/quilos/mes', 'DoacaoRealizadaAnaliseController@pegaDoacoesMesQuilos');
-Route::get('/doacoes-realizada/unidade' ,'DoacaoRealizadaAnaliseController@pegaTodasDoacoesUnidades');
-Route::get('/doacoes-realizada/unidade/mes', 'DoacaoRealizadaAnaliseController@pegaDoacoesMesUnidades');
+
+
+Route::get('/doacoes-realizada/unidade/todos' ,'DoacaoRealizadaAnaliseController@pegaTodasDoacoesUnidades');
+Route::get('/doacoes-realizada/unidade/limit-5' ,'DoacaoRealizadaAnaliseController@pegaDoacoesUnidadesLimit5');
+Route::get('/doacoes-realizada/unidade/mes', 'DoacaoRealizadaAnaliseController@pegaDoacoesMesUnidadesLimit5');
+
+
+//Rotas para editar perfil
+Route::put('user/update/{id}', 'PerfilEditController@update');
 
 
 

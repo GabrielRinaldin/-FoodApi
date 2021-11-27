@@ -10,6 +10,7 @@ use Carbon\Carbon;
 
 class DoacaoRealizadaAnaliseController extends Controller
 {
+
     public function pegaTodasDoacoesQuilos()
     {
         return DB::select(DB::raw(
@@ -18,7 +19,22 @@ class DoacaoRealizadaAnaliseController extends Controller
             users.id = doacao_realizadas.doador_id 
             WHERE doacao_realizadas.retirado = " . true . "
             and doacao_realizadas.unidade_medida = 'quilos'
-            group by users.id"
+            group by users.id
+            order by quantidade_total DESC"
+        ));
+    }
+
+    public function pegaDoacoesQuilosLimit5()
+    {
+        return DB::select(DB::raw(
+            "SELECT users.id, users.nome, doacao_realizadas.unidade_medida, sum(quantidade) as quantidade_total
+            FROM users INNER JOIN doacao_realizadas ON
+            users.id = doacao_realizadas.doador_id 
+            WHERE doacao_realizadas.retirado = " . true . "
+            and doacao_realizadas.unidade_medida = 'quilos'
+            group by users.id
+            order by quantidade_total DESC 
+            limit 5"
         ));
     }
 
@@ -44,6 +60,7 @@ class DoacaoRealizadaAnaliseController extends Controller
             and doacao_realizadas.unidade_medida = 'quilos'
         group by
             users.id
+            order by quantidade_total DESC 
         "
         ));
     }
@@ -56,7 +73,23 @@ class DoacaoRealizadaAnaliseController extends Controller
             users.id = doacao_realizadas.doador_id 
             WHERE doacao_realizadas.retirado = " . true . "
             and doacao_realizadas.unidade_medida = 'unidade'
-            group by users.id"
+            group by users.id
+            order by quantidade_total DESC "
+
+        ));
+    }
+
+    public function pegaDoacoesUnidadesLimit5()
+    {
+        return DB::select(DB::raw(
+            "SELECT users.id, users.nome, doacao_realizadas.unidade_medida, sum(quantidade) as quantidade_total
+            FROM users INNER JOIN doacao_realizadas ON
+            users.id = doacao_realizadas.doador_id 
+            WHERE doacao_realizadas.retirado = " . true . "
+            and doacao_realizadas.unidade_medida = 'unidade'
+            group by users.id
+            order by quantidade_total DESC 
+            limit 5"
         ));
     }
 
@@ -82,6 +115,7 @@ class DoacaoRealizadaAnaliseController extends Controller
             and doacao_realizadas.unidade_medida = 'unidade'
         group by
             users.id
+            order by quantidade_total DESC 
         "
         ));
     }
